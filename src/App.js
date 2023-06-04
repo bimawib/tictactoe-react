@@ -3,6 +3,7 @@ import './App.css';
 import store from './store';
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import { addInput, resetState, setWinner } from './reduxToolkit';
+import { useEffect } from 'react';
 
 function TextHeader(){
   return (
@@ -32,7 +33,7 @@ function WinnerModal(){
 
   return (
     <div className=''>
-      <h1>Winner : {winner}</h1>
+      <h1>{winner === 'X' ? 'Winner : X' : winner === 'O' ? 'Winner : O' : 'Draw, Nobody Win!'}</h1>
       <span className='rounded-sm'>
       {winner && <button className='bg-blue-500 backdrop:text-slate-100 rounded-lg px-4 py-2 mt-4 border-cyan-950 border-4' onClick={() => dispatch(resetState())}>Play Again</button>}
       </span>
@@ -48,7 +49,11 @@ function Board(){
   const playerX = playerInput[1];
   const winner = useSelector((state) => state.game.winner);
 
-  function CheckWinner(boxNumber){
+  useEffect(() => {
+    CheckWinner();
+  });
+
+  function CheckWinner(){
     const winningCombos = [
       [1, 2, 3], [4, 5, 6], [7, 8, 9], // horizontal
       [1, 4, 7], [2, 5, 8], [3, 6, 9], // vertical
@@ -66,10 +71,11 @@ function Board(){
   }
 
   function HandleClick(index){
-    if(playerO.includes(index) || playerX.includes(index)){
+    if(playerO.includes(index) || playerX.includes(index) ){
       alert('This area is already taken');
+    } else if(winner !== ''){
+      alert('The game is over');
     } else {
-      CheckWinner(index);
       console.log(index);
       console.log(winner);
       console.log(playerO);
