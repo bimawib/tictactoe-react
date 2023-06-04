@@ -18,10 +18,10 @@ function InfoPanel(){
 
   return (
     <div className='text-slate-100 bg-teal-900 w-1/4 mx-auto text-center text-5xl font-serif my-4 h-full rounded-lg py-6'>
-      <h1>Next Turn : {turn%2 === 0 ? 'O' : 'X'}</h1>
-      <span className='rounded-sm bg-yellow-400'>
+      {!winner && <h1>Next Turn : {turn%2 === 0 ? 'O' : 'X'}</h1>}
+      <div className='rounded-sm'>
       {winner !== '' ? <WinnerModal/> :''}
-      </span>
+      </div>
     </div>
   );
 }
@@ -31,10 +31,10 @@ function WinnerModal(){
   const dispatch = useDispatch();
 
   return (
-    <div className='text-slate-100 bg-teal-900 w-1/4 mx-auto text-center text-5xl font-serif my-4 h-full rounded-lg py-6'>
+    <div className=''>
       <h1>Winner : {winner}</h1>
-      <span className='rounded-sm bg-yellow-400'>
-      {winner !== '' ? <button className='bg-teal-900 text-slate-100 rounded-sm px-2 py-1' onClick={() => dispatch(resetState())}>Play Again</button> : ''}
+      <span className='rounded-sm'>
+      {winner && <button className='bg-blue-500 backdrop:text-slate-100 rounded-lg px-4 py-2 mt-4 border-cyan-950 border-4' onClick={() => dispatch(resetState())}>Play Again</button>}
       </span>
     </div>
   );
@@ -114,7 +114,7 @@ function App() {
     <div>
       <Provider store={store}>
         <TextHeader/>
-          <Board/>
+        <Board/>
         <InfoPanel/>
       </Provider>
     </div>
