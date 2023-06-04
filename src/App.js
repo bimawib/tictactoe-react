@@ -71,10 +71,10 @@ function Board(){
   }
 
   function HandleClick(index){
-    if(playerO.includes(index) || playerX.includes(index) ){
-      alert('This area is already taken');
-    } else if(winner !== ''){
+    if(winner !== '' || turn === 9){
       alert('The game is over');
+    } else if(playerO.includes(index) || playerX.includes(index)){
+      alert('This area is already taken');
     } else {
       console.log(index);
       console.log(winner);
