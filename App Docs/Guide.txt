@@ -1,0 +1,7 @@
+git: https://github.com/bimawib/tictactoe-react
+
+Panduan Instalasi:
+
+npm install
+
+npm run start
